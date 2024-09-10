@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { TErrorSources, TGenericErrorResponse } from '../interface/error'
+import { TErrorSources, TGenericErrorResponse } from "../interface/error";
 
 const handleDuplicateError = (err: any): TGenericErrorResponse => {
   // const arrayError = err.message.split(' ')
@@ -11,18 +11,18 @@ const handleDuplicateError = (err: any): TGenericErrorResponse => {
 
   const errorMessages: TErrorSources = [
     {
-      path: '',
+      path: "",
       message: err.message,
     },
-  ]
+  ];
 
-  const statusCode = 400
+  const statusCode = 400;
 
   return {
     statusCode,
     message: err.message,
     errorMessages,
-  }
-}
+  };
+};
 
-export default handleDuplicateError
+export default handleDuplicateError;

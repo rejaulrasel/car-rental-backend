@@ -1,7 +1,7 @@
-import { Schema, model } from 'mongoose'
-import { TUser, UserModel } from './user.interface'
-import config from '../../config'
-import bcrypt from 'bcrypt'
+import { Schema, model } from "mongoose";
+import { TUser, UserModel } from "./user.interface";
+import config from "../../config";
+import bcrypt from "bcrypt";
 
 const userSchema = new Schema<TUser, UserModel>(
   {
@@ -13,8 +13,8 @@ const userSchema = new Schema<TUser, UserModel>(
     role: {
       type: String,
       enum: {
-        values: ['user', 'admin'],
-        message: '{VALUE} is not valid',
+        values: ["user", "admin"],
+        message: "{VALUE} is not valid",
       },
       required: true,
     },
@@ -23,26 +23,26 @@ const userSchema = new Schema<TUser, UserModel>(
   {
     timestamps: true,
   },
-)
+);
 
-userSchema.pre('save', async function (next) {
-  const user = this
+userSchema.pre("save", async function (next) {
+  const user = this;
   user.password = await bcrypt.hash(
     user.password,
     Number(config.bcrypt_salt_rounds),
-  )
-  next()
-})
+  );
+  next();
+});
 
 userSchema.statics.isUserExists = async function (email: string) {
-  return await User.findOne({ email })
-}
+  return await User.findOne({ email });
+};
 
 userSchema.statics.isPasswordMatched = async function (
   plainPassword,
   hashedPassword,
 ) {
-  return await bcrypt.compare(plainPassword, hashedPassword)
-}
+  return await bcrypt.compare(plainPassword, hashedPassword);
+};
 
-export const User = model<TUser, UserModel>('User', userSchema)
+export const User = model<TUser, UserModel>("User", userSchema);
