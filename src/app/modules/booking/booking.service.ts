@@ -48,12 +48,13 @@ const createBookingIntoDB = async (
 };
 
 const getAllBookingFromDB = async (carId: string, date: string) => {
+    //when carid is given but not date
     if (carId && !date) {
         const result = await Booking.find({ carId }).populate("carId").populate("user");
         return result;
     }
 
-
+    //when date is given but carid is not
     else if (date && !carId) {
         if (isValidDate(date)) {
             const result = await Booking.find({ date }).populate("carId").populate("user");
@@ -63,7 +64,7 @@ const getAllBookingFromDB = async (carId: string, date: string) => {
         }
     }
 
-
+    //when both car id and date is given
     else if (date && carId) {
 
         if (isValidDate(date)) {
@@ -76,7 +77,7 @@ const getAllBookingFromDB = async (carId: string, date: string) => {
     }
 
 
-
+    //when there is no query parameter
     const result = await Booking.find().populate("carId").populate("user");
 
     if (!result.length) {
