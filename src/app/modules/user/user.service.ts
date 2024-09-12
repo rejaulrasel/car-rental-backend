@@ -12,7 +12,6 @@ const createUserIntoDB = async (payload: TUser) => {
 
 const loginUser = async (payload: TLogin) => {
   const user: any = await User.isUserExists(payload?.email);
-
   if (!user) {
     throw new AppError(
       httpStatus.NOT_FOUND,

@@ -18,7 +18,7 @@ const auth = (...requiredRoles: string[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const data: any = req.headers.authorization?.split(" ");
     const token = data[1];
-    console.log(token);
+
 
     if (!token) {
       throw new AppError(

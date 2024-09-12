@@ -8,11 +8,7 @@ import AppError from "../../errors/AppError";
 import { calculationTotalDurationTime } from "./booking.utils";
 import isValidDate from "../../middlewares/checkValidDate";
 
-interface TBookeded extends Document {
-  carId: mongoose.Types.ObjectId;
-  user?: mongoose.Types.ObjectId;
-  [key: string]: any;
-}
+
 const createBookingIntoDB = async (
   user: Record<string, unknown>,
   payload: TBooking,
@@ -24,7 +20,6 @@ const createBookingIntoDB = async (
   }
   const newUser = filterLoginUser._id;
   payload.user = newUser as mongoose.Types.ObjectId;
-  console.log({ payload });
 
   const filterCar = await Car.findOne({ _id: payload.carId });
   if (!filterCar) {
