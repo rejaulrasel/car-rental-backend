@@ -8,7 +8,6 @@ import AppError from "../../errors/AppError";
 import { calculationTotalDurationTime } from "./booking.utils";
 import isValidDate from "../../middlewares/checkValidDate";
 
-
 const createBookingIntoDB = async (
   user: Record<string, unknown>,
   payload: TBooking,

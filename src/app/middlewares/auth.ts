@@ -19,7 +19,6 @@ const auth = (...requiredRoles: string[]) => {
     const data: any = req.headers.authorization?.split(" ");
     const token = data[1];
 
-
     if (!token) {
       throw new AppError(
         httpStatus.UNAUTHORIZED,

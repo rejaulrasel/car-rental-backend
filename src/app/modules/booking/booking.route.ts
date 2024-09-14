@@ -18,7 +18,7 @@ router.get("/", auth(USER_ROLE.admin), BookingControllers.getAllBookings);
 router.get(
   "/my-bookings",
   auth(USER_ROLE.user),
-  BookingControllers.getMyAllOrders,
+  BookingControllers.getMyAllBookings,
 );
 
 router.put(

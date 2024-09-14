@@ -27,7 +27,7 @@ const getAllBookings = catchAsync(async (req, res) => {
     data: result,
   });
 });
-const getMyAllOrders = catchAsync(async (req, res) => {
+const getMyAllBookings = catchAsync(async (req, res) => {
   const { email } = req.user;
   const result = await BookingServices.getMYAllBookingFromDB(email);
   sendResponse(res, {
@@ -52,6 +52,6 @@ const returnBookings = catchAsync(async (req, res) => {
 export const BookingControllers = {
   createBooking,
   getAllBookings,
-  getMyAllOrders,
+  getMyAllBookings,
   returnBookings,
 };
