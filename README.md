@@ -22,11 +22,13 @@ Open folder in vs code use : code .
 Add a .env file in the root directory of project and add port number and database url by the following format
 Example:
 
-#PORT: 3000
-#NODE_ENV=development
-#DATABASE_URL=your_mongodb_connection_string
-#BCRYPT_SALT_ROUND=<= 10
-#JWT_ACCESS_SECRET=your_jwt_access_secret
+```bash
+PORT: 3000
+NODE_ENV=development
+DATABASE_URL=your_mongodb_connection_string
+BCRYPT_SALT_ROUND=<= 10
+JWT_ACCESS_SECRET=your_jwt_access_secret
+```
 
 # Step 6 :
 
