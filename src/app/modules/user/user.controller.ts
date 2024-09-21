@@ -16,8 +16,8 @@ const createUser = catchAsync(async (req, res) => {
       role: user.role,
       phone: user.phone,
       address: user.address,
-      createdAt: user?.createdAt,
-      updatedAt: user?.updatedAt,
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
     },
   });
 });

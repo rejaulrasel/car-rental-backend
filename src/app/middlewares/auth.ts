@@ -16,8 +16,7 @@ declare global {
 
 const auth = (...requiredRoles: string[]) => {
   return catchAsync(async (req: Request, res: Response, next: NextFunction) => {
-    const data: any = req.headers.authorization?.split(" ");
-    const token = data[1];
+    const token = req?.headers?.authorization?.split(" ")[1];
 
     if (!token) {
       throw new AppError(

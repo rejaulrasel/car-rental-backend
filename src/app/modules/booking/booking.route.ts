@@ -21,10 +21,4 @@ router.get(
   BookingControllers.getMyAllBookings,
 );
 
-router.put(
-  "/return",
-  auth(USER_ROLE.admin),
-  validateRequest(bookingValidations.updateBookingValidationSchema),
-  BookingControllers.returnBookings,
-);
 export const BookingRoutes = router;

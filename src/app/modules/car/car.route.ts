@@ -16,10 +16,18 @@ router.get("/", CarControllers.getAllCar);
 router.get("/:id", CarControllers.getSingleCar);
 
 router.put(
+  "/return",
+  auth(USER_ROLE.admin),
+  validateRequest(CarValidations.returnCarValidationSchema),
+  CarControllers.returnCar,
+);
+
+router.put(
   "/:id",
   auth(USER_ROLE.admin),
   validateRequest(CarValidations.updateCarValidationSchema),
   CarControllers.updateCar,
 );
+
 router.delete("/:id", auth(USER_ROLE.admin), CarControllers.deleteCar);
 export const CarRoutes = router;

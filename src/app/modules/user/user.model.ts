@@ -18,6 +18,14 @@ const userSchema = new Schema<TUser, UserModel>(
       },
       required: true,
     },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+    updatedAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
   // { versionKey: false },
   {

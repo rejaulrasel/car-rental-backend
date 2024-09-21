@@ -1,4 +1,11 @@
 import { z } from "zod";
+const timeSchema = z.string().refine(
+  (time) => {
+    const regex = /^([01]\d|2[0-3]):([0-5]\d)$/;
+    return regex.test(time);
+  },
+  { message: '"invalid time formet expected HH.MM in 24 hour format" !' },
+);
 
 const createCarValidationSchema = z.object({
   body: z.object({
@@ -37,7 +44,19 @@ const updateCarValidationSchema = z.object({
   }),
 });
 
+const returnCarValidationSchema = z.object({
+  body: z.object({
+    date: z.string().optional(),
+    user: z.string().optional(),
+    carId: z.string().optional(),
+    startTime: timeSchema.optional(),
+    bookingId: z.string({ required_error: "Name is required" }),
+    endTime: timeSchema,
+    totalCost: z.number().optional(),
+  }),
+});
 export const CarValidations = {
   createCarValidationSchema,
   updateCarValidationSchema,
+  returnCarValidationSchema,
 };

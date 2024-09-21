@@ -5,7 +5,6 @@ import { Booking } from "./booking.model";
 import httpStatus from "http-status";
 import mongoose from "mongoose";
 import AppError from "../../errors/AppError";
-import { calculationTotalDurationTime } from "./booking.utils";
 import isValidDate from "../../middlewares/checkValidDate";
 
 const createBookingIntoDB = async (
@@ -103,68 +102,8 @@ const getMYAllBookingFromDB = async (email: string) => {
   return result;
 };
 
-const returnBookingsFromDB = async (
-  id: string,
-  payload: Record<string, unknown>,
-) => {
-  // console.log("get id", id);
-  const session = await mongoose.startSession();
-
-  try {
-    session.startTransaction();
-    const { bookingId } = payload;
-    const findBook = await Booking.findOne({ _id: bookingId });
-
-    if (!findBook) {
-      throw new AppError(httpStatus.NOT_FOUND, "Bookings is not Found");
-    }
-    const { carId } = findBook;
-
-    const findCar = await Car.findOneAndUpdate(
-      { _id: carId },
-      { status: "available" },
-      { new: true, runValidators: true },
-    );
-    if (!findCar) {
-      throw new AppError(httpStatus.NOT_FOUND, "booked not found");
-    }
-    // console.log(findCar.pricePerHour);
-    const { pricePerHour } = findCar;
-
-    const FilterBooked = await Booking.findByIdAndUpdate(id, payload, {
-      new: true,
-    });
-    if (!FilterBooked) {
-      throw new AppError(httpStatus.NOT_FOUND, "booked not found");
-    }
-    const { startTime, endTime } = FilterBooked;
-
-    const filterTotalCost = calculationTotalDurationTime(
-      startTime,
-      endTime as string,
-      pricePerHour,
-    );
-    payload.totalCost = filterTotalCost;
-    const result = await Booking.findByIdAndUpdate(id, payload, {
-      new: true,
-      runValidators: true,
-    })
-      .populate("user")
-      .populate("carId");
-
-    await session.commitTransaction();
-    await session.endSession();
-    return result;
-  } catch (error) {
-    await session.abortTransaction();
-    session.endSession();
-    throw error;
-  }
-};
-
 export const BookingServices = {
   getAllBookingFromDB,
   createBookingIntoDB,
   getMYAllBookingFromDB,
-  returnBookingsFromDB,
 };
