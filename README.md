@@ -37,7 +37,7 @@ If all are working well you see Car Rental app listening on port 3000 in your co
 
 # Project Name : Car Rental Reservation System
 
-# Live Link : https://car-rental-backend-01.vercel.app
+# Live Link : https://car-rental-backend-01.vercel.app/
 
 # Features:
 
